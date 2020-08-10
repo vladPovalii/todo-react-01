@@ -10,7 +10,7 @@ import Todo from './Todo';
 import FilterButton from './FilterButton';
 
 import { connect } from 'react-redux'
-import { addTodoAction } from './redux/actions'
+import { addTodoAction, deleteTodoAction } from './redux/actions'
 
 const BUTTONS = {
   All: () => true,
@@ -64,8 +64,7 @@ function App(props) {
   }
 
   function deleteTask(id) {
-    const remainingTask = tasks.filter(task => id !== task.id);
-    setTasks(remainingTask);
+    props.deleteTodoAction(id)
   }
 
   function editTask(id, newName, formatDateEdit) {
@@ -118,7 +117,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  addTodoAction
+  addTodoAction,
+  deleteTodoAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

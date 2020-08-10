@@ -5,9 +5,9 @@ import List from '@material-ui/core/List';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import Form from './components/Form';
-import Todo from './components/Todo';
-import FilterButton from './components/FilterButton';
+import Form from './Form';
+import Todo from './Todo';
+import FilterButton from './FilterButton';
 
 const BUTTONS = {
   All: () => true,

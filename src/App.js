@@ -9,6 +9,9 @@ import Form from './Form';
 import Todo from './Todo';
 import FilterButton from './FilterButton';
 
+import { connect } from 'react-redux'
+import { addTodoAction } from './redux/actions'
+
 const BUTTONS = {
   All: () => true,
   Active: task => !task.completed,
@@ -17,7 +20,7 @@ const BUTTONS = {
 
 const BUTTONS_KEYS = Object.keys(BUTTONS);
 
-export default function App() {
+function App(props) {
   const [tasks, setTasks] = React.useState([]);
   const [filter, setFilter] = React.useState('All');
 
@@ -33,7 +36,7 @@ export default function App() {
     />
   ))
 
-  const taskList = tasks
+  const taskList = props.todoReducer
     .filter(BUTTONS[filter])
     .map(task => (
       <Todo
@@ -56,7 +59,7 @@ export default function App() {
         completed: false,
         date: formatDate
       };
-      setTasks([...tasks, addTodo]);
+      props.addTodoAction(addTodo)
     }
   }
 
@@ -110,4 +113,13 @@ export default function App() {
   );
 }
 
+const mapStateToProps = state => ({
+  todoReducer: state.todoReducer
+})
+
+const mapDispatchToProps = {
+  addTodoAction
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 

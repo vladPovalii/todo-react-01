@@ -10,7 +10,7 @@ import Todo from './Todo';
 import FilterButton from './FilterButton';
 
 import { connect } from 'react-redux'
-import { addTodoAction, deleteTodoAction } from './redux/actions'
+import { addTodoAction, deleteTodoAction, toggleTaskAction } from './redux/actions'
 
 const BUTTONS = {
   All: () => true,
@@ -78,13 +78,7 @@ function App(props) {
   }
 
   function toggleTaskCompleted(id) {
-    const updateTask = tasks.map(task => {
-      if (id === task.id) {
-        return { ...task, completed: !task.completed }
-      }
-      return task;
-    });
-    setTasks(updateTask);
+    props.toggleTaskAction(id)
   }
 
   return (
@@ -118,7 +112,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   addTodoAction,
-  deleteTodoAction
+  deleteTodoAction,
+  toggleTaskAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

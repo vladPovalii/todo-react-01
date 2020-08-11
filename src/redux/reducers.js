@@ -13,7 +13,9 @@ function todoReducer(state = [], action) {
             )
         case EDIT_TASK:
             return state.map(item =>
-                item.id === action.payload.id ? { ...item, name: action.payload.newName, date: action.payload.formatDateEdit } : item
+                item.id === action.payload.id && action.payload.newName !== ''
+                    ? { ...item, name: action.payload.newName, date: action.payload.formatDateEdit }
+                    : item
             )
         default:
             return state

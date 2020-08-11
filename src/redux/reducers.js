@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { ADD_TODO, DELETE_TODO, TOGGLE_TASK } from './actions'
+import { ADD_TODO, DELETE_TODO, TOGGLE_TASK, EDIT_TASK } from './actions'
 
 function todoReducer(state = [], action) {
     switch (action.type) {
@@ -10,6 +10,10 @@ function todoReducer(state = [], action) {
         case TOGGLE_TASK:
             return state.map(item =>
                 item.id === action.payload ? { ...item, completed: !item.completed } : item
+            )
+        case EDIT_TASK:
+            return state.map(item =>
+                item.id === action.payload.id ? { ...item, name: action.payload.newName, date: action.payload.formatDateEdit } : item
             )
         default:
             return state
